@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Innoscripta News Aggregator
 
-## Getting Started
+News aggregator built with Next.js that pulls articles from multiple sources including `NewsAPI.org`, `The Guardian`, and `The New York Times`. Features include personalized news preferences, search functionality, and category filtering.
 
-First, run the development server:
+## Quick Start
+
+Clone the repository:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/beingsaumyadeep/news-portal.git
+
+cd news-portal
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+__Note:__ Create `.env` file from `.env.example` and add your news portal's API keys.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+-------
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Method 1: Using Docker
 
-## Learn More
+The easiest way to get started is with Docker:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Build the Docker image (will automatically include your .env file)
+docker build -t news-portal .
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Run the container with port mapping
+docker run -p 3000:3000 news-portal
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Method 2: Without Docker
 
-## Deploy on Vercel
+If you prefer to run without Docker:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+# Install dependencies
+npm install
+# Run the development server
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Then visit http://localhost:3000 in your browser.
+
+
+## Features
+
+- Multi-source news aggregation
+- User preference settings (saved in cookies)
+- Country and category filtering
+- Responsive design
+- Server-side rendering for better SEO & Cookies based user preferences
+
+## API Keys
+
+API keys can be obtained from:
+- [NewsAPI](https://newsapi.org)
+- [The Guardian](https://open-platform.theguardian.com)
+- [The NYTimes](https://developer.nytimes.com)
