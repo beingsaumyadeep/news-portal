@@ -90,7 +90,7 @@ export default async function Home({
                     <Link
                       key={src}
                       href={`/?source=${src}`}
-                      className={`px-3 py-1 text-sm border ${src === source
+                      className={`px-3 py-1 text-sm border ${src === _source
                         ? "bg-primary text-white border-primary"
                         : "text-gray-600 hover:bg-gray-100 border-gray-200"
                       }`}
