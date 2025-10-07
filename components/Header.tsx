@@ -52,15 +52,15 @@ async function Header({ searchParams }: Props) {
         preference={{ category, country, source }}
       />
       <div className="max-w-7xl mx-auto px-3 ">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between md:h-16 h-auto pb-3 md:pb-0 flex-col md:flex-row">
           <div className="flex items-center">
-            <Link href="/" className="text-2xl font-bold text-foreground">
+            <Link href="/" className="text-2xl font-bold text-foreground py-3">
               Innoscripta News
             </Link>
           </div>
 
           <div className="flex items-center space-x-4">
-            <div className="relative hidden sm:block">
+            <div className="relative block">
               <form className="flex" method="get" action="/search">
                 <input
                   type="text"
@@ -77,9 +77,6 @@ async function Header({ searchParams }: Props) {
                 </button>
               </form>
             </div>
-            <button className="md:hidden p-2 hover:bg-gray-100">
-              <MenuIcon className="w-6 h-6" />
-            </button>
           </div>
         </div>
       </div>

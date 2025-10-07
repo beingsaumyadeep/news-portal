@@ -51,7 +51,7 @@ function Preference({
         </button>
       </div>
       {open && (
-        <div className="max-w-7xl grid grid-cols-6 mx-auto px-3 gap-3">
+        <div className="max-w-7xl grid md:grid-cols-6 grid-cols-4 mx-auto px-3 gap-3">
           <select
             name="category"
             value={category}
