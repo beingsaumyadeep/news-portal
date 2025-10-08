@@ -43,7 +43,7 @@ export default function SearchForm({
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     // const query = formData.get("query")?.toString() || "";
-    const source = formData.get("source")?.toString() || "newsapi";
+    const source = formData.get("source")?.toString() || "guardian";
     const from = formData.get("from")?.toString();
     const to = formData.get("to")?.toString();
     const sortBy = formData.get("sortBy")?.toString();

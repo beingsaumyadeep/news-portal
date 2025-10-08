@@ -1,12 +1,10 @@
 import React from "react";
 import Link from "next/link";
-import {
-  NewsArticle,
-  newsSources,
-} from "@/apis/NewsAPI";
+import { NewsArticle, newsSources } from "@/apis/NewsAPI";
 import { searchAllNews, NewsSource } from "@/apis/NewsAggregator";
 import SearchForm from "./SearchForm";
 import NewsCard from "@/components/NewsCard";
+import { cookies } from "next/headers";
 
 type SearchParams = {
   query?: string;
@@ -27,13 +25,16 @@ async function Search({
   // const { query, source, page, pageSize, from, to, sortBy, category } = await searchParams;
   const search = await searchParams;
 
+  const cookieStore = await cookies();
+  const preference = cookieStore.get("preference");
+  const { source: _source } = JSON.parse(preference?.value || "{}");
   const query = search.query || "";
-  const source = search.source || "newsapi";
+  const source = search.source || _source || "guardian";
   const page = search.page ? parseInt(search.page) : 1;
   const pageSize = search.pageSize ? parseInt(search.pageSize) : 10;
   const from = search.from || undefined;
   const to = search.to || undefined;
-  const sortBy = search.sortBy || "publishedAt";
+  const sortBy = search.sortBy || undefined;
   const category = search.category || undefined;
 
   let articles: NewsArticle[] = [];
@@ -52,9 +53,11 @@ async function Search({
         sortBy,
         category: category === "All" ? undefined : category,
       });
-      if(response.error){
-        console.log(response?.error?.response?.data)
-        error = (response?.error?.response?.data as { message?: string })?.message || 'An error occurred';
+      if (response.error) {
+        console.log(response?.error?.response?.data);
+        error =
+          (response?.error?.response?.data as { message?: string })?.message ||
+          "An error occurred";
       }
 
       articles = response.articles;
@@ -129,57 +132,6 @@ async function Search({
               <div>
                 {articles.map((article) => (
                   <NewsCard key={article.url} news={article} index={0} />
-                  // <Link
-                  //   href={article.url}
-                  //   key={article.url}
-                  //   className="flex flex-col sm:flex-row gap-4 p-4 border-y border-x-0 hover:bg-gray-50 transition-colors cursor-pointer group border border-gray-100"
-                  // >
-                  //   {article.urlToImage && (
-                  //     <div className="sm:w-48 h-32 flex-shrink-0 overflow-hidden relative">
-                  //       <Image
-                  //         src={article.urlToImage}
-                  //         alt={article.title}
-                  //         fill
-                  //         className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  //         unoptimized
-                  //       />
-                  //     </div>
-                  //   )}
-                  //   <div className="flex-1">
-                  //     <div className="flex items-center space-x-2 mb-2">
-                  //       <span className="text-xs font-semibold uppercase">
-                  //         {article.source?.name || "News"}
-                  //       </span>
-                  //       <span className="text-xs text-gray-500">•</span>
-                  //       <span className="text-xs text-gray-500">
-                  //         {formatRelativeTime(article.publishedAt)}
-                  //       </span>
-                  //     </div>
-                  //     <h2 className="text-xl font-bold mb-2 text-foreground transition-colors">
-                  //       {article.title}
-                  //     </h2>
-                  //     <p className="text-gray-600 text-sm mb-2">
-                  //       {article.description}
-                  //     </p>
-                  //     <div className="flex justify-between items-center">
-                  //       <p className="text-sm text-gray-500">
-                  //         {article.author ? (
-                  //           <span>
-                  //             By{" "}
-                  //             <span className="font-bold font-primary  ">
-                  //               {article.author}
-                  //             </span>
-                  //           </span>
-                  //         ) : (
-                  //           ""
-                  //         )}
-                  //       </p>
-                  //       <span className="text-xs text-gray-500">
-                  //         {calculateReadTime(article.content)}
-                  //       </span>
-                  //     </div>
-                  //   </div>
-                  // </Link>
                 ))}
               </div>
             ) : (

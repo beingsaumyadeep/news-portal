@@ -49,7 +49,7 @@ async function CategoryPage({
     sourceParam === "nytimes" ||
     sourceParam === "guardian"
       ? sourceParam
-      : "newsapi";
+      : "guardian";
 
   // Fetch news for the specific category
   let articles: NewsArticle[] = [];

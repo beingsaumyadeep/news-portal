@@ -29,7 +29,7 @@ export const fetchTopNews = async (params: {
   country?: string;
   
 }): Promise<AggregatedNewsResponse> => {
-  const source = params.source || "nytimes";
+  const source = params.source || "guardian";
   const pageSize = params.pageSize || 10;
   const page = params.page || 1;
 
@@ -204,7 +204,7 @@ export const searchAllNews = async (params: {
   sortBy?: string;
   category?: string;
 }): Promise<AggregatedNewsResponse> => {
-  const source = params.source || "newsapi";
+  const source = params.source || "nytimes";
   const pageSize = params.pageSize || 10;
   const page = params.page || 1;
 

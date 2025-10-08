@@ -87,12 +87,13 @@ export const searchGuardian = async (params: {
   country?: string;
 }) => {
   try {
+    console.log(params);
     const response = await guardianBaseAPI.get<GuardianResponse>("/search", {
       params: {
         q: params.q,
         "page-size": params.pageSize || 10,
         page: params.page || 1,
-        "order-by": params.orderBy || "relevance",
+        "order-by": params.orderBy || "newest",
         "from-date": params.fromDate,
         "to-date": params.toDate,
         section: params.section,
