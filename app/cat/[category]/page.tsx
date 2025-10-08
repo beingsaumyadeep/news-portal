@@ -1,10 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { fetchTopNews, NewsSource } from "@/apis/NewsAggregator";
-import {
-  newsSources,
-  NewsArticle,
-} from "@/apis/NewsAPI";
+import { newsSources, NewsArticle } from "@/apis/NewsAPI";
 import type { Metadata } from "next";
 import TrendingCard from "@/components/TrendingCard";
 import NewsCard from "@/components/NewsCard";
@@ -65,6 +62,11 @@ async function CategoryPage({
       pageSize: 20,
       page: 1,
     });
+    if (response.error) {
+      error =
+        (response?.error?.response?.data as { message?: string })?.message ||
+        "An error occurred";
+    }
 
     articles = response.articles;
   } catch (err) {

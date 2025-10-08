@@ -14,7 +14,7 @@ export default async function Home({
   const _source: NewsSource = sourceParam as NewsSource;
   
   let articles: NewsArticle[] = [];
-  let error: string | null = null;
+  let error: string | null  = null;
   
   const cookieStore = await cookies();
   const preference = cookieStore.get("preference");
@@ -27,7 +27,10 @@ export default async function Home({
       country: country,
       category: category,
     });
-    
+    if(response.error){
+      console.log(response?.error?.response?.data)
+      error = (response?.error?.response?.data as { message?: string })?.message || 'An error occurred';
+    }
     articles = response.articles;
   } catch (err) {
     console.error("Error fetching news:", err);
@@ -44,6 +47,7 @@ export default async function Home({
         {error && (
           <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 mb-8">
             {error}
+            {JSON.stringify(error)}
           </div>
         )}
 

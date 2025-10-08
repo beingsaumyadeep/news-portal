@@ -10,6 +10,7 @@ import {
   searchGuardian,
   convertGuardianArticleToCommon,
 } from "./GuardianAPI";
+import { AxiosError } from "axios";
 
 export type NewsSource = "newsapi" | "nytimes" | "guardian";
 
@@ -17,6 +18,7 @@ export interface AggregatedNewsResponse {
   articles: NewsArticle[];
   totalResults: number;
   source: NewsSource;
+  error?: AxiosError
 }
 
 export const fetchTopNews = async (params: {
@@ -27,7 +29,7 @@ export const fetchTopNews = async (params: {
   country?: string;
   
 }): Promise<AggregatedNewsResponse> => {
-  const source = params.source || "newsapi";
+  const source = params.source || "nytimes";
   const pageSize = params.pageSize || 10;
   const page = params.page || 1;
 
@@ -67,6 +69,7 @@ export const fetchTopNews = async (params: {
             articles: [],
             totalResults: 0,
             source: "newsapi",
+            error: newsApiError as AxiosError,
           };
         }
 
@@ -119,6 +122,7 @@ export const fetchTopNews = async (params: {
             articles: [],
             totalResults: 0,
             source: "nytimes",
+            error: nyTimesError as AxiosError,
           };
         }
 
@@ -177,6 +181,7 @@ export const fetchTopNews = async (params: {
             articles: [],
             totalResults: 0,
             source: "guardian",
+            error: guardianError as AxiosError,
           };
         }
 
@@ -243,6 +248,7 @@ export const searchAllNews = async (params: {
             articles: [],
             totalResults: 0,
             source: "newsapi",
+            error: newsApiError as AxiosError,
           };
         }
 
@@ -280,6 +286,7 @@ export const searchAllNews = async (params: {
             articles: nyTimesArticles,
             totalResults,
             source: "nytimes",
+            
           };
         } catch (nyTimesError) {
           console.error("Error with NY Times search API:", nyTimesError);
@@ -287,6 +294,7 @@ export const searchAllNews = async (params: {
             articles: [],
             totalResults: 0,
             source: "nytimes",
+            error: nyTimesError as AxiosError,
           };
         }
 
@@ -349,6 +357,7 @@ export const searchAllNews = async (params: {
             articles: [],
             totalResults: 0,
             source: "guardian",
+            error: guardianError as AxiosError,
           };
         }
 

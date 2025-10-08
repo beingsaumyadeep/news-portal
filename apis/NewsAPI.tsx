@@ -49,7 +49,7 @@ export const fetchTopHeadlines = async (params: {
     });
     return response.data;
   } catch (error) {
-    console.error('Error fetching top headlines:', error);
+    console.log((error as AxiosError).response?.data);
     throw error;
   }
 };
@@ -78,7 +78,6 @@ export const searchNews = async (params: {
     });
     return response.data;
   } catch (error: Error | unknown | AxiosError) {
-    console.error('Error searching news:', error);
     console.log((error as AxiosError).response?.data);
     throw error;
   }

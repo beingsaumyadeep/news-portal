@@ -52,6 +52,10 @@ async function Search({
         sortBy,
         category: category === "All" ? undefined : category,
       });
+      if(response.error){
+        console.log(response?.error?.response?.data)
+        error = (response?.error?.response?.data as { message?: string })?.message || 'An error occurred';
+      }
 
       articles = response.articles;
       totalResults = response.totalResults;
